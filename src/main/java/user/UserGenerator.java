@@ -14,7 +14,25 @@ public class UserGenerator {
 
     // рандомный пользователь без email
     public static User getRandomUserWithoutEmail() {
-
+        final String password = RandomStringUtils.randomAlphabetic(6);
+        final String name = RandomStringUtils.randomAlphabetic(6);
+        return new User(null, password, name);
     }
+
+    // рандомный пользователь без password
+    public static User getRandomUserWithoutPassword() {
+        final String email = RandomStringUtils.randomAlphabetic(6) + "@mail.ru";;
+        final String name = RandomStringUtils.randomAlphabetic(6);
+        return new User(email, null, name);
+    }
+
+    // рандомный пользователь без name
+    public static User getRandomUserWithoutName() {
+        final String email = RandomStringUtils.randomAlphabetic(6) + "@mail.ru";;
+        final String password = RandomStringUtils.randomAlphabetic(6);
+        return new User(email, password, null);
+    }
+
+
 
 }
