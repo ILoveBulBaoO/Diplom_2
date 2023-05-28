@@ -33,6 +33,14 @@ public class UserGenerator {
         return new User(email, password, null);
     }
 
+    // существующий пользователь
+    public static User getExistingUser() {
+        final String email = "existTestUser@yandex.ru";
+        final String password = "qwerty123";
+        final String name = "Exist Test User";
+        return new User(email, password, name);
+    }
+
 
 
 }
