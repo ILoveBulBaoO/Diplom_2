@@ -43,7 +43,7 @@ public class UserCreateNegativeTest {
         Assert.assertFalse(isUserCreatedSuccess);
 
         String actualMessage = registerResponse.extract().path("message");
-        Assert.assertEquals("User already exists", actualMessage);
+        Assert.assertEquals("Incorrect message","User already exists", actualMessage);
     }
 
     // нельзя создать пользователя без email
@@ -62,7 +62,7 @@ public class UserCreateNegativeTest {
         Assert.assertFalse(isUserCreatedSuccess);
 
         String actualMessage = registerResponse.extract().path("message");
-        Assert.assertEquals("Email, password and name are required fields", actualMessage);
+        Assert.assertEquals("Incorrect message","Email, password and name are required fields", actualMessage);
     }
 
     // нельзя создать пользователя без password
@@ -81,7 +81,7 @@ public class UserCreateNegativeTest {
         Assert.assertFalse(isUserCreatedSuccess);
 
         String actualMessage = registerResponse.extract().path("message");
-        Assert.assertEquals("Email, password and name are required fields", actualMessage);
+        Assert.assertEquals("Incorrect message","Email, password and name are required fields", actualMessage);
     }
 
     // нельзя создать пользователя без name
@@ -100,7 +100,7 @@ public class UserCreateNegativeTest {
         Assert.assertFalse(isUserCreatedSuccess);
 
         String actualMessage = registerResponse.extract().path("message");
-        Assert.assertEquals("Email, password and name are required fields", actualMessage);
+        Assert.assertEquals("Incorrect message","Email, password and name are required fields", actualMessage);
     }
 
 }
