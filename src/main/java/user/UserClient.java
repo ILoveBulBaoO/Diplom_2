@@ -48,5 +48,16 @@ public class UserClient extends GeneralData {
                 .then();
     }
 
+    @Step("Update")
+    public ValidatableResponse update(UserCredentials userCredentials, String accessToken) {
+        return given()
+                .spec(getBaseSpec())
+                .header("Authorization", accessToken)
+                .body(userCredentials)
+                .when()
+                .patch(USER_UPDATE_USER_DELETE)
+                .then();
+    }
+
 
 }
