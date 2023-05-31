@@ -1,3 +1,5 @@
+package userTests;
+
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -9,9 +11,7 @@ import user.UserClient;
 import user.UserCredentials;
 import user.UserGenerator;
 
-import static org.hamcrest.CoreMatchers.startsWith;
-
-public class UserLoginPositiveTest {
+public class UserChangeDataPositiveTest {
     private User randomUser;
     private UserClient userClient;
     private String accessToken;
@@ -27,39 +27,35 @@ public class UserLoginPositiveTest {
         userClient.delete(accessToken);
     }
 
-    // можно залогиниться существующим пользователем
-    @DisplayName("User can log in with existing data")
+    // можно изменить данные
+    @DisplayName("Login user can change data")
     @Test
-    public void userCanBeLoginTest() {
+    public void userCanChangeData() {
 
         // создать юзера
         userClient.register(randomUser);
 
-        // залогиниться
-        ValidatableResponse loginResponse = userClient.login(UserCredentials.from(randomUser));
+        // залогиниться и получить access token
+        accessToken = userClient.login(UserCredentials.from(randomUser)).extract().path("accessToken");
+
+        // дернуть метод изменения данных
+        ValidatableResponse changeDataResponse = userClient.update(UserCredentials.from(randomUser), accessToken);
 
         // проверить статус код и боди
-        int statusCode = loginResponse.extract().statusCode();
+        int statusCode = changeDataResponse.extract().statusCode();
         Assert.assertEquals(200, statusCode);
 
-        boolean isUserCreatedSuccess = loginResponse.extract().path("success");
-        Assert.assertTrue(isUserCreatedSuccess);
-
-        // проверить, что токены accessToken(начинается с Bearer ) и не null, refreshToken не null
-        accessToken = loginResponse.extract().path("accessToken");
-        Assert.assertNotNull(accessToken);
-        Assert.assertThat("Access token is incorrect", accessToken, startsWith("Bearer "));
-
-        String refreshToken = loginResponse.extract().path("refreshToken");
-        Assert.assertNotNull("Refresh token is null", refreshToken);
+        boolean isUserChangeDataSuccess = changeDataResponse.extract().path("success");
+        Assert.assertTrue(isUserChangeDataSuccess);
 
         // проверить, что user email, user name соответствуют данным авторизации
         String expectedEmail = UserCredentials.from(randomUser).getEmail().toLowerCase();
-        String actualEmail = loginResponse.extract().path("user.email");
+        String actualEmail = changeDataResponse.extract().path("user.email");
         Assert.assertEquals("Incorrect email", expectedEmail, actualEmail);
 
         String expectedName = UserCredentials.from(randomUser).getName();
-        String actualName = loginResponse.extract().path("user.name");
+        String actualName = changeDataResponse.extract().path("user.name");
         Assert.assertEquals("Incorrect name", expectedName, actualName);
     }
+
 }

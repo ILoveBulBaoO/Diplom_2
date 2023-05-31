@@ -35,7 +35,7 @@ public class UserGenerator {
 
     // существующий пользователь
     public static User getExistingUser() {
-        final String email = "existTestUser@yandex.ru";
+        final String email = "existTestUser@ya.ru";
         final String password = "qwerty123";
         final String name = "Exist Test User";
         return new User(email, password, name);
