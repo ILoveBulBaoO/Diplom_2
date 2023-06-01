@@ -59,5 +59,4 @@ public class UserClient extends GeneralData {
                 .then();
     }
 
-
 }

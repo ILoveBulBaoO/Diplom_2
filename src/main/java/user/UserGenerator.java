@@ -41,6 +41,4 @@ public class UserGenerator {
         return new User(email, password, name);
     }
 
-
-
 }

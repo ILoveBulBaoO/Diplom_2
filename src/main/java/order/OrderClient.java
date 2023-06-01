@@ -4,8 +4,6 @@ import data.GeneralData;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
-import java.util.List;
-
 import static io.restassured.RestAssured.given;
 
 public class OrderClient extends GeneralData {

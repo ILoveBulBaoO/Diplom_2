@@ -15,7 +15,7 @@ public class OrderGenerator {
         return new Order(List.of("12345", "fffff", "asd123"));
     }
 
-    // ордер без ингредиентов
+    // ордер с пустым списком ингредиентов
     public static Order orderWithoutIngredients() {
         return new Order(Collections.EMPTY_LIST);
     }
