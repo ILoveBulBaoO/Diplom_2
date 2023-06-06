@@ -6,6 +6,7 @@ import order.Order;
 import order.OrderClient;
 import order.OrderCredentials;
 import order.OrderGenerator;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,13 @@ public class OrderCreateNegativeTest {
         defaultOrder = OrderGenerator.getDefaultOrder();
     }
 
+    @After
+    public void cleanUn() {
+        if (userClient != null && accessToken != null && accessToken.equals("")) {
+            userClient.delete(accessToken);
+        }
+    }
+
     // нельзя создать заказ без ингредиентов авторизованным юзером
     @DisplayName("Can not create order login user without ingredients")
     @Test
@@ -54,8 +62,6 @@ public class OrderCreateNegativeTest {
         String actualMessage = orderResponse.extract().path("message");
         Assert.assertEquals("Incorrect message", "Ingredient ids must be provided", actualMessage);
 
-        // удалить юзера
-        deleteUser();
     }
 
     // нельзя создать заказ с невалидными игредиентами авторизованным юзером
@@ -72,9 +78,6 @@ public class OrderCreateNegativeTest {
         // проверить статус код
         int statusCode = orderResponse.extract().statusCode();
         Assert.assertEquals(500, statusCode);
-
-        // удалить юзера
-        deleteUser();
 
     }
 
@@ -95,11 +98,6 @@ public class OrderCreateNegativeTest {
 
         String actualMessage = orderResponse.extract().path("message");
         Assert.assertEquals("Incorrect message", "jwt malformed", actualMessage);
-    }
-
-
-    private void deleteUser() {
-        userClient.delete(accessToken);
     }
 
     private String getAccessToken() {
