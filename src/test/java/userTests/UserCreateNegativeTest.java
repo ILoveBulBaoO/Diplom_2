@@ -12,7 +12,6 @@ import user.UserGenerator;
 import static org.junit.Assert.assertEquals;
 
 public class UserCreateNegativeTest {
-    private User randomUser;
     private User existingUser;
     private UserClient userClient;
     private User userWithoutEmail;
@@ -22,7 +21,6 @@ public class UserCreateNegativeTest {
     @Before
     public void setUp() {
         userClient = new UserClient();
-        randomUser = UserGenerator.getRandomUser();
         existingUser = UserGenerator.getExistingUser();
         userWithoutEmail = UserGenerator.getRandomUserWithoutEmail();
         userWithoutPassword = UserGenerator.getRandomUserWithoutPassword();
